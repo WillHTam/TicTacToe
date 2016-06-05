@@ -57,7 +57,7 @@ $(function () {
     $('#timeDisplay').text('Time remaining: ' + seconds);
     if (seconds === 0) {
       restart();
-      alert('TIME OVER');
+      alert('What part of "GO" did you not get?');
     }
   }
 
