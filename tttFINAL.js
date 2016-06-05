@@ -13,19 +13,18 @@ $(function () {
     if (whoWonTheGame === 'O') {
       $('#bigtit').text('X, A WINNER IS YOU');
       $('#timeDisplay').text(' ');
+      clearInterval(timerID);
       $('#pad').effect('bounce', {times: 10}, 'slow');
-    return 1;
+    } else if (whoWonTheGame === 'X') {
+      $('#bigtit').text('O, A WINNER IS YOU');
+      $('#timeDisplay').text(' ');
+      clearInterval(timerID);
+      $('#pad').effect('bounce', { times: 10 }, 'slow');
+    } else if (whoWonTheGame === 3) {
+      console.log('draw');
+      clearInterval(timerID);
+      $('#bigtit').text("CAT' S GAME");
     }
-     else if ( whoWonTheGame === "X") {
-        $('#bigtit').text("O, A WINNER IS YOU");
-        $('#timeDisplay').text(' ');
-        $( "#pad" ).effect( "bounce", { times: 10 }, "slow" );
-        return 2;
-     }
-     else if ( whoWonTheGame === 3) {
-        $('#bigtit').text("CAT'S GAME");
-        return false;
-     }
   }
 
   function whoWon () {
@@ -41,50 +40,48 @@ $(function () {
     return 0;
   }
 
-  function playTurn(index) {
+  function playTurn (index) {
     if (grid[index] || isGameOver()) {
       return false;
-      isGameOver();
-     } else {
-        grid[index] = player
-        if (player === "O") player = "X"
-        else player = "O"
-        return true
-     }
+    } else {
+      grid[index] = player;
+      if (player === 'O') player = 'X';
+      else player = 'O';
+      return true;
+    }
   }
 
-  function UpdateText( ) {
-     console.log("UpdateText is here")
-      seconds--;
-      $( "#timeDisplay" ).text("Time remaining: " + seconds);
-      if (seconds === 0) {
-        restart();
-        alert("TIME OVER");
-     }
+  function UpdateText () {
+    console.log('UpdateText is here');
+    seconds--;
+    $('#timeDisplay').text('Time remaining: ' + seconds);
+    if (seconds === 0) {
+      restart();
+      alert('TIME OVER');
+    }
   }
 
-  function returnTitle() {
-     $("#timeDisplay").text( "START THE TIMER" );
-  }
-
+// Changes title when timer started
   function changeTitle () {
-     $('#bigtit').text('GO GO GO');å
+    $('#bigtit').text('GO GO GO');
   }
-
+// Flashes everything
   function FLASHER () {
-     $("#bigtit").fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100).fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
-     $("#timeDisplay").fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100).fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
-     $(".section").fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100).fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
-     $(".button").fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100).fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
+    $('#bigtit').fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100).fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
+    $('#timeDisplay').fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100).fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
+    $('.section').fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100).fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
+    $('.button').fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100).fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
   }
 
+  // Starts Timed Game
   function Start () {
-     console.log('Start Clicked');
-     FLASHER();
-     timerID = setInterval(UpdateText, 0.01);
-     changeTitle();
-   }
+    console.log('Start Clicked');
+    FLASHER();
+    timerID = setInterval(UpdateText, 0.01);
+    changeTitle();
+  }
 
+// restarts the game
   function restart () {
     grid = [0, 0, 0,
             0, 0, 0,
@@ -98,13 +95,14 @@ $(function () {
     $('#timeDisplay').text('START THE TIMER');
   }
 
+// inputs selection
   $('.section').click(function () {
-      var id = parseInt(this.id);
-      if(playTurn(id)) {
+    var id = parseInt(this.id);
+    if (playTurn(id)) {
       $(this).text(player);
-  }
-      console.log(id);
-      console.log(player);
+      isGameOver();
+    }
+    console.log(id);
+    console.log(player);
   });
-
 });
