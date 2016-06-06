@@ -1,2 +1,2 @@
 # TicTacToe
-TicTacToe in Javascript with GUI
+TicTacToe in Javascript & jQuery with GUI. Timer use is highly recommended!
